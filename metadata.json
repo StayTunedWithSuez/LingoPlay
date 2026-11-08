@@ -1,0 +1,6 @@
+{
+  "name": "LingoPlay — Minimal English-Learning Video Player",
+  "description": "A lightweight, YouTube-inspired local video player with selectable SRT/VTT subtitles, effortless 5-second seeking, and instant browser translation support for learning English.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

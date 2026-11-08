@@ -1,0 +1,1040 @@
+# Lingo Play — Comprehensive Pre-Publication Quality Assurance, Reliability, and Stability Audit
+
+## 1. Purpose of This Request
+
+My application, **Lingo Play**, is currently working extremely well.
+
+I am very satisfied with its existing appearance, user experience, features, interactions, and overall performance.
+
+Before publishing the application for public use, I want a comprehensive, professional quality assurance (QA) audit to ensure it is stable, reliable, secure, and ready for real users.
+
+The purpose of this audit is NOT to redesign, improve, modernize, simplify, expand, or restructure the application.
+
+The purpose is to identify genuine problems that might currently be hidden, including issues that could occur under unusual circumstances, on different browsers, with different media files, or after prolonged usage.
+
+**My highest priority is preserving the application exactly as it currently looks and behaves.**
+
+I want the same Lingo Play, with the same interface, features, controls, animations, layouts, and interactions.
+
+Only genuine errors, bugs, vulnerabilities, reliability problems, or missing persistence behavior should be addressed.
+
+Do not make changes simply because another implementation appears cleaner, newer, or more technically sophisticated.
+
+---
+
+# PART 1 — Fundamental Audit Rules
+
+## 2. Preserve the Existing Application
+
+Treat the existing application as a stable, nearly finished product.
+
+Strict requirements:
+
+- Do not redesign any page.
+- Do not change the color scheme.
+- Do not change typography.
+- Do not change spacing or positioning.
+- Do not replace existing icons.
+- Do not change working animations.
+- Do not introduce new features.
+- Do not remove existing features.
+- Do not change keyboard shortcuts.
+- Do not reorganize the settings menu.
+- Do not modify functioning playback behavior.
+- Do not change the way subtitles appear or interact.
+- Do not change existing translation behavior.
+- Do not change Concentration Mode behavior.
+- Do not replace existing libraries unnecessarily.
+- Do not introduce unnecessary dependencies.
+- Do not perform broad refactoring or architectural rewrites.
+
+If something is functioning correctly, leave it alone.
+
+If an actual defect is found, correct it with the smallest reliable change possible.
+
+Any correction should preserve the current appearance and expected user experience.
+
+## 3. Audit First, Correct Only Verified Problems
+
+I do not want speculative modifications.
+
+Evaluate the actual implementation and identify problems using available code inspection, tests, browser behavior, and reproducible evidence.
+
+Distinguish between:
+
+- Confirmed defects.
+- Potential risks that have not been reproduced.
+- Browser or media-format limitations.
+- Expected application behavior.
+- Optional improvements that are not necessary for publication.
+
+Correct confirmed defects that can be resolved safely without changing the intended user experience.
+
+Do not implement optional enhancements.
+
+Do not describe a feature as defective merely because its implementation differs from a preferred design pattern.
+
+If a risky change is required or a problem cannot be reproduced or safely resolved, document it instead of making an unnecessary modification.
+
+---
+
+# PART 2 — Complete Media Playback Audit
+
+## 4. Video Playback Reliability
+
+Carefully audit every existing video playback method.
+
+This includes:
+
+- Local video file playback.
+- Drag-and-drop video loading.
+- Video streaming through URLs.
+- Supported MP4 and WebM playback.
+- Browser-supported MKV playback.
+- HLS streaming where currently supported.
+- MPEG-DASH streaming where currently supported.
+- Multiple video selection or playlist behavior, if already available.
+- Seeking within videos.
+- Pausing and resuming.
+- Changing playback speed.
+- Fullscreen playback.
+
+### Critical issue: Audio plays but the screen is black
+
+I particularly want you to investigate situations where:
+
+- Video audio plays normally.
+- The playback timer advances.
+- The progress bar moves.
+- However, the video area remains black, blank, or frozen.
+
+Check for potential causes such as:
+
+- Unsupported video codecs.
+- Audio-supported but video-unsupported media files.
+- Browser decoding failures.
+- Media initialization problems.
+- Streaming manifest or segment loading issues.
+- Video element rendering problems.
+- Codec compatibility differences.
+- Media Source Extensions errors.
+- Hardware decoding or rendering problems where observable.
+- Incorrect playback state handling.
+- Video dimensions remaining unavailable.
+- Streams that provide audio but no playable video representation.
+- Resource cleanup or stream-switching problems.
+
+The player should never silently appear to be playing correctly while displaying a black screen because of a detectable playback error.
+
+If the application can reliably detect that video playback has failed, it should handle the situation gracefully.
+
+Error handling requirements:
+
+- Do not interrupt valid playback because a video naturally contains a black scene.
+- Do not mistake audio-only media for a broken video.
+- Do not falsely report errors during initial loading, buffering, or seeking.
+- Do not assume that a black frame always indicates failure.
+- Distinguish confirmed decoding or rendering failures from ordinary black video content.
+- Display an existing-style, unobtrusive error message only when an actual problem can be identified with reasonable confidence.
+- Where appropriate, explain that the video codec or format may not be supported by the browser.
+- Avoid unnecessary automatic retries or endless playback loops.
+
+I want meaningful error handling, not intrusive or unreliable error detection.
+
+## 5. Media Loading and Error Recovery
+
+Audit unusual loading conditions, including:
+
+- Missing files.
+- Empty files.
+- Corrupted video files.
+- Unsupported media formats.
+- Invalid streaming URLs.
+- Expired streaming URLs.
+- Unavailable servers.
+- Network interruptions.
+- CORS restrictions.
+- HTTP errors.
+- Partial or interrupted media downloads.
+- Slow connections.
+- Buffering.
+- Rapidly switching between different media sources.
+- Loading a new video while another is playing.
+- Repeatedly opening and closing files.
+- Seeking before metadata becomes available.
+- Seeking close to the beginning or end of a video.
+- Videos with unknown or infinite duration.
+
+Verify that these situations do not cause application crashes, indefinite loading states, misleading success messages, or broken player controls.
+
+If a media source fails, the player should remain usable so the user can open another video.
+
+---
+
+# PART 3 — Audio System Audit
+
+## 6. Audio Playback Reliability
+
+Audit every existing audio-related feature.
+
+Verify:
+
+- Normal video audio playback.
+- Audio volume changes.
+- Mute/unmute.
+- Playback speed changes.
+- Browser autoplay restrictions.
+- Audio availability after seeking.
+- Audio continuity after pause/resume.
+- Audio behavior when switching videos.
+- Audio behavior when entering or leaving fullscreen.
+
+Check that audio does not unexpectedly stop, restart, become permanently muted, or continue playing after the associated media is closed.
+
+## 7. Multiple Audio Tracks
+
+My player already supports audio-track switching.
+
+Verify that:
+
+- Available tracks are detected correctly when exposed by the playback engine.
+- Audio-track language labels are accurate when metadata is available.
+- Switching tracks works where supported.
+- Playback position is preserved.
+- The selected track actually becomes audible.
+- Two tracks do not accidentally play simultaneously.
+- Audio does not become permanently silent after switching.
+- Unsupported track switching is handled gracefully.
+
+Respect the limitations of the source format and browser.
+
+Do not falsely claim that all media formats support multiple audio tracks.
+
+## 8. External Audio Synchronization
+
+Audit the existing external audio feature.
+
+Check:
+
+- External audio file loading.
+- Switching between original and external audio.
+- Synchronization during play/pause.
+- Synchronization after seeking.
+- Synchronization during playback speed changes.
+- Audio offset adjustments.
+- Behavior near the end of the video.
+- Repeated switching between audio sources.
+- Proper cleanup when loading another video.
+
+Avoid audio drift, duplicated audio, abandoned audio playback, and inconsistent playback states.
+
+Preserve the current audio interface and controls.
+
+---
+
+# PART 4 — Subtitle System Audit
+
+## 9. Subtitle Loading and Parsing
+
+My application uses subtitles as a core learning feature.
+
+Audit support for:
+
+- SRT files.
+- VTT files.
+- UTF-8 subtitle files.
+- Multiline subtitles.
+- Common subtitle timestamp formats.
+- Empty subtitle cues.
+- Overlapping subtitle cues.
+- Large subtitle files.
+- Invalid or malformed subtitle files.
+- Subtitle timing near the beginning and end of playback.
+- Loading another subtitle file while one is already active.
+
+Verify that subtitle parsing errors are handled safely and do not crash the player.
+
+Do not modify subtitle styling or positioning.
+
+## 10. Subtitle Synchronization
+
+Verify that subtitles remain synchronized when:
+
+- Playing normally.
+- Pausing.
+- Resuming.
+- Seeking backward.
+- Seeking forward.
+- Changing playback speed.
+- Changing subtitle offset.
+- Switching video sources.
+- Entering fullscreen.
+- Using Concentration Mode.
+
+Confirm that subtitle delay adjustments are applied consistently.
+
+Verify that paused subtitles remain visible and selectable according to the current design.
+
+## 11. Selectable Subtitle Text
+
+This is one of the most important features of Lingo Play.
+
+Verify that:
+
+- Double-clicking selects individual words.
+- Dragging selects phrases or sentences.
+- Ctrl+C copies selected text.
+- Selection works with multiline subtitles.
+- Subtitle text remains selectable in fullscreen.
+- Selecting subtitles does not accidentally pause the video.
+- Subtitle interaction does not trigger unwanted seeking.
+- Mouse interactions do not unexpectedly clear the selection.
+- Keyboard interactions behave correctly.
+- Subtitle text is displayed safely without executing untrusted content.
+
+Do not replace the existing HTML subtitle overlay with native captions, canvas rendering, or any non-selectable alternative.
+
+## 12. Subtitle Hover Toolbar
+
+The existing subtitle toolbar contains actions such as:
+
+- Replay.
+- Repeat.
+- Translate.
+- Copy.
+
+These buttons currently work properly.
+
+Verify that:
+
+- The toolbar remains hidden by default.
+- It appears when hovering over subtitle text.
+- Moving the cursor toward the toolbar does not immediately hide it.
+- The toolbar remains accessible when text is selected.
+- Clicking buttons performs the correct action.
+- The toolbar does not obstruct subtitle selection.
+- The toolbar hides appropriately when it is no longer needed.
+- Its appearance and positioning remain unchanged.
+
+Do not redesign or reposition the existing toolbar.
+
+## 13. Replay and Repeat Subtitle
+
+Verify the current Replay and Repeat behavior.
+
+Check that:
+
+- Replay seeks to the intended subtitle.
+- Repeat loops the intended subtitle interval.
+- Seeking outside a repeat interval behaves as intended.
+- Repeat mode can be disabled.
+- Loading another video does not preserve an invalid repeat interval.
+- Changing subtitle files does not produce incorrect looping behavior.
+- Playback does not become stuck in an unintended loop.
+
+Preserve the existing interface and expected behavior.
+
+---
+
+# PART 5 — Gemini AI Translation Audit
+
+## 14. Bengali Translation Functionality
+
+My application uses Gemini AI to translate selected English subtitle text into Bengali.
+
+Audit the complete translation workflow.
+
+Verify:
+
+- A user can select an English word.
+- A user can select a phrase.
+- A user can select a complete subtitle sentence.
+- Clicking Translate sends the intended text.
+- The current subtitle context is handled correctly.
+- The response is presented inside the existing translation popup.
+- Bengali Unicode characters display correctly.
+- Translation requests do not interfere with playback.
+- The popup remains usable in fullscreen mode.
+- Copying translated text works.
+- Closing the popup works.
+- Existing translation loading indicators work properly.
+
+## 15. Gemini API Error Handling
+
+Check how the application behaves when:
+
+- The internet connection is unavailable.
+- The Gemini API is temporarily unavailable.
+- The API request times out.
+- An API quota or rate limit is reached.
+- API credentials are missing or invalid.
+- The model returns an empty response.
+- The model returns an unexpected response structure.
+- Multiple translation requests are triggered quickly.
+- The selected subtitle changes while an earlier request is processing.
+- The user changes the video during translation.
+- The user closes the popup before the request finishes.
+
+Ensure that an older response is not incorrectly displayed for a newer selection.
+
+Prevent unnecessary duplicate requests.
+
+Do not expose sensitive API keys through client-side code.
+
+Do not send entire video, audio, or subtitle files to Gemini.
+
+Keep the current translation design and user experience unchanged.
+
+---
+
+# PART 6 — Browser Settings Persistence
+
+## 16. Automatic Settings Saving
+
+This is a particularly important part of the audit.
+
+When a user changes a persistent application setting, I want that preference to be remembered automatically.
+
+When the user closes the browser and visits Lingo Play again, their previous preferences should be restored.
+
+Use the browser's localStorage for lightweight application preferences.
+
+I do not want users to repeatedly configure the player every time they return.
+
+### Settings that should be remembered
+
+Audit the existing application and persist relevant user preferences, including:
+
+**Playback preferences**
+- Default volume.
+- Mute preference.
+- Playback speed.
+
+**Subtitle preferences**
+- Subtitle font size.
+- Subtitle vertical position.
+- Subtitle background appearance.
+- Subtitle visibility preference.
+- Other existing subtitle appearance preferences.
+
+**Learning and interface preferences**
+- Concentration Mode preference.
+- Existing automatic-pause-on-subtitle-selection preference, if available.
+- Other appropriate user-configurable preferences that are intended to apply across sessions.
+
+**Other existing persistent preferences**
+
+If there are additional user settings that logically should be remembered, include them without creating new controls or settings.
+
+### Persistence behavior
+
+- Settings should save automatically when changed.
+- No manual Save button should be needed.
+- Settings should restore when the application opens again.
+- Restored settings should be reflected accurately in the existing controls.
+- Settings should remain consistent when navigating between the main player and About page.
+- Settings should remain available after browser refresh.
+- Use sensible defaults for first-time users.
+- Validate saved values before applying them.
+- Handle missing, invalid, outdated, or corrupted saved preferences gracefully.
+- Handle blocked or unavailable localStorage without crashing.
+- Avoid overwriting user preferences unintentionally during initialization.
+- Preserve compatibility with any existing stored preference keys and formats wherever possible.
+- Avoid unnecessary storage writes during frequent video playback updates.
+
+### What should NOT be stored in localStorage
+
+Do not store:
+
+- Raw video files.
+- Audio files.
+- Subtitle file contents.
+- API keys.
+- Passwords or tokens.
+- Large media data.
+- Temporary object URLs.
+- Sensitive temporary information.
+
+Do not automatically save or restore local files in a way that violates browser file-access restrictions.
+
+### Important distinction
+
+Persistent preferences should be remembered across sessions.
+
+Temporary media-specific state, such as subtitle synchronization offsets or selected audio tracks, should not accidentally carry over to unrelated videos unless that is already the intended behavior of the application.
+
+I want predictable and sensible persistence, not indiscriminately saving every internal state variable.
+
+### Persistence verification
+
+Confirm that the following workflow works:
+
+1. Open Lingo Play.
+2. Change the subtitle size.
+3. Change playback speed.
+4. Adjust volume.
+5. Enable Concentration Mode.
+6. Refresh the page or close and reopen the browser.
+7. Return to Lingo Play.
+8. Confirm that all appropriate preferences are restored correctly.
+
+These restored settings should not create additional visual changes or unexpected behavior.
+
+---
+
+# PART 7 — HTML Elements and Conventional Browser Behavior
+
+## 17. HTML Semantics and Element Behavior
+
+I want every interactive HTML element to behave according to normal browser conventions.
+
+Audit:
+
+- Buttons.
+- Links.
+- Input fields.
+- Sliders.
+- Dropdowns.
+- Checkboxes.
+- File selectors.
+- Navigation elements.
+- Dialogs and popups.
+- Tooltips.
+- Text selection areas.
+- Scrollable content.
+
+Verify that:
+
+- Buttons trigger their intended action only.
+- Links navigate correctly.
+- External links behave appropriately.
+- Input fields accept and preserve user input.
+- Sliders respond correctly to mouse and keyboard interaction.
+- Disabled elements do not trigger actions.
+- Keyboard focus behaves normally.
+- Focus indicators are present where appropriate.
+- Enter and Space activate appropriate focused controls.
+- Escape closes applicable menus or popups.
+- Text selection behaves normally.
+- Copying text works as expected.
+- Interactive elements do not cause accidental form submission or page reload.
+- Clickable controls are not unintentionally nested inside other interactive elements.
+- Event propagation does not create conflicting actions.
+- The HTML structure is valid and semantically appropriate.
+
+Do not change the visual appearance of working elements merely to change their underlying implementation.
+
+Only correct genuine behavioral or accessibility defects.
+
+---
+
+# PART 8 — Keyboard Shortcuts and Interaction Audit
+
+## 18. Keyboard Shortcut Reliability
+
+Verify every existing keyboard shortcut.
+
+Examples:
+
+- Space — Play/Pause.
+- Left Arrow — Backward 5 seconds.
+- Right Arrow — Forward 5 seconds.
+- Up Arrow — Increase volume.
+- Down Arrow — Decrease volume.
+- M — Mute/Unmute.
+- S — Subtitle visibility.
+- F — Fullscreen.
+- C — Concentration Mode.
+
+Check that shortcuts:
+
+- Work reliably during normal playback.
+- Work in fullscreen.
+- Work in Concentration Mode.
+- Do not trigger while typing in input fields.
+- Do not interfere with normal text selection.
+- Do not unexpectedly activate while interacting with translation popups.
+- Do not cause unintended scrolling.
+- Do not trigger duplicate actions.
+- Remain reliable after changing videos.
+
+Preserve existing shortcut assignments.
+
+## 19. Mouse, Hover, and Focus Behavior
+
+Check:
+
+- Mouse hover controls.
+- Control visibility timeouts.
+- Subtitle hover actions.
+- Popup interaction.
+- Drag-and-drop.
+- Click-to-play behavior.
+- Double-click text selection.
+- Fullscreen mouse interactions.
+- Seeking through the progress bar.
+- Mouse movement while Concentration Mode is active.
+
+Verify that interacting with one control does not unintentionally activate another.
+
+Do not modify existing animations or hover behavior unless there is an actual defect.
+
+---
+
+# PART 9 — Concentration Mode Audit
+
+## 20. Concentration Mode Reliability
+
+Concentration Mode is a core part of my preferred viewing experience.
+
+Verify that:
+
+- It can be enabled and disabled.
+- It hides the intended nonessential player UI.
+- The large video title stays hidden.
+- The top and bottom control bars remain hidden.
+- Only the existing central playback controls and subtitle-related interactions remain accessible.
+- Central buttons appear and disappear according to their current behavior.
+- Subtitle selection continues working.
+- Gemini translation continues working.
+- Replay and Repeat continue working.
+- Keyboard shortcuts remain functional.
+- Fullscreen mode works correctly.
+- Exiting Concentration Mode restores the original interface.
+- No unnecessary UI elements become permanently stuck on the screen.
+
+Do not change the current design or intended behavior of Concentration Mode.
+
+---
+
+# PART 10 — Navigation and Branding Audit
+
+## 21. Lingo Play Branding
+
+Verify that:
+
+- The Lingo Play logo appears correctly.
+- It is positioned properly.
+- It does not overlap video controls.
+- It does not obstruct subtitles.
+- The browser title is correct.
+- The favicon loads properly.
+- Branding disappears in Concentration Mode as intended.
+
+Do not redesign the branding.
+
+## 22. About Page
+
+Audit the existing About page.
+
+Verify:
+
+- About navigation works.
+- The page opens correctly.
+- The developer photograph loads or a suitable existing fallback appears.
+- Biography text displays correctly.
+- Education information is accurate to the existing content.
+- Technical skills and research interests display correctly.
+- Email links work.
+- WhatsApp links work.
+- Facebook and LinkedIn links work.
+- External links use appropriate security attributes.
+- The page scrolls correctly.
+- The layout works at common screen sizes.
+- Returning to the player works correctly.
+
+Most importantly, opening the About page and returning must not unnecessarily destroy the currently loaded media session, reset playback position, or erase user settings.
+
+Do not rewrite the About page content or alter its appearance unless correcting an actual defect.
+
+---
+
+# PART 11 — Performance and Resource Management
+
+## 23. Performance Audit
+
+Check for performance problems that may not be immediately noticeable during short testing.
+
+Examples:
+
+- Excessive React component re-rendering.
+- Unnecessary state updates during video playback.
+- Memory leaks.
+- Unremoved event listeners.
+- Unnecessary repeated subtitle parsing.
+- Excessive localStorage writes.
+- Large subtitle files causing interface lag.
+- Unnecessary Gemini API requests.
+- Unreleased object URLs.
+- Media streams remaining active after switching sources.
+- External audio continuing in the background.
+- Duplicate media-player instances.
+- HLS/DASH playback instances not being cleaned up.
+- Accumulating timers or animation frames.
+- Excessive CPU or memory usage during extended playback.
+
+Verify that the player remains stable after repeated operations.
+
+Avoid speculative performance optimization.
+
+If performance is already good, do not modify it unnecessarily.
+
+## 24. Resource Cleanup
+
+Check resource cleanup when:
+
+- Changing videos.
+- Changing subtitle files.
+- Changing audio files.
+- Switching streams.
+- Leaving the player page.
+- Returning from the About page.
+- Closing popups.
+- Entering or leaving fullscreen.
+- Unmounting player components.
+
+Ensure that obsolete media resources are released appropriately.
+
+Do not break active playback by cleaning up resources prematurely.
+
+---
+
+# PART 12 — Security and Privacy Audit
+
+## 25. Security Review
+
+Because the application will be publicly accessible, perform a security audit focused on genuine risks.
+
+Check:
+
+- Safe handling of user-provided file names.
+- Safe parsing of external subtitle text.
+- Protection against script injection through subtitle content.
+- Safe rendering of Gemini responses.
+- Safe handling of streaming URLs.
+- Safe handling of external links.
+- Appropriate CORS behavior.
+- Protection of API keys.
+- Server-side handling of Gemini API requests.
+- Missing or unsafe environment variables.
+- Unnecessary exposure of application secrets.
+- Untrusted HTML insertion.
+- Insecure dependencies where relevant.
+
+Do not embed Gemini API keys in frontend source code.
+
+Do not expose private credentials through browser-visible requests.
+
+Do not introduce unsafe workarounds to bypass browser security restrictions.
+
+## 26. User Privacy
+
+I want users to feel confident that Lingo Play respects their privacy.
+
+Verify that:
+
+- Local video files are not uploaded unnecessarily.
+- Local audio files are not uploaded unnecessarily.
+- Full subtitle files are not sent to external services unnecessarily.
+- Gemini receives only the text and minimal context necessary for translation.
+- User settings are stored locally where intended.
+- No unnecessary tracking or analytics are introduced.
+- Sensitive information is not written into browser storage or application logs.
+
+Do not add analytics, tracking scripts, advertising libraries, or unrelated external services.
+
+---
+
+# PART 13 — Browser Compatibility and Responsive Behavior
+
+## 27. Windows Browser Compatibility
+
+My primary target environment is:
+
+**Windows PC using Google Chrome or Microsoft Edge.**
+
+Prioritize these browsers.
+
+Check compatibility with:
+
+- Current Chrome.
+- Current Microsoft Edge.
+- Fullscreen API behavior.
+- Media playback APIs.
+- File selection APIs.
+- Subtitle text selection.
+- Streaming playback.
+- Audio-track switching where supported.
+- Browser localStorage.
+- Keyboard shortcuts.
+- Gemini translation requests.
+
+Distinguish browser limitations from actual application bugs.
+
+Do not claim that unsupported codecs or restricted streaming URLs can be made universally compatible.
+
+## 28. Display and Layout Reliability
+
+Without redesigning the interface, verify that the application works at common desktop window sizes.
+
+Check:
+
+- Normal browser windows.
+- Maximized windows.
+- Fullscreen mode.
+- Different display scaling levels.
+- Browser zoom.
+- Narrower desktop windows.
+- Long video titles.
+- Long subtitle lines.
+- Long Bengali translations.
+- Multiline subtitle text.
+- Large subtitle font sizes.
+
+Ensure elements do not unexpectedly overlap, disappear, become inaccessible, or extend beyond the viewport.
+
+Preserve the existing visual design.
+
+---
+
+# PART 14 — Edge Cases and Stress Testing
+
+## 29. Realistic User Scenarios
+
+Audit combinations of user actions rather than testing every feature only in isolation.
+
+Examples:
+
+**Scenario A — Extended English-learning session**
+
+1. Open a local video.
+2. Load an SRT file.
+3. Pause repeatedly.
+4. Select subtitle words.
+5. Request Bengali translations.
+6. Replay dialogue multiple times.
+7. Adjust subtitle synchronization.
+8. Change playback speed.
+9. Continue watching for an extended period.
+
+Verify stability throughout the session.
+
+**Scenario B — Streaming and audio switching**
+
+1. Open a compatible streaming URL.
+2. Start playback.
+3. Switch available audio tracks.
+4. Seek repeatedly.
+5. Pause and resume.
+6. Change playback speed.
+7. Enter fullscreen.
+
+Verify stable playback and correct audio behavior.
+
+**Scenario C — Concentration Mode**
+
+1. Start video playback.
+2. Enable Concentration Mode.
+3. Use the center seeking buttons.
+4. Select subtitle text.
+5. Request Gemini translation.
+6. Close the popup.
+7. Exit Concentration Mode.
+
+Verify all interactions work correctly.
+
+**Scenario D — Settings persistence**
+
+1. Change multiple preferences.
+2. Refresh the browser.
+3. Reopen the application.
+4. Confirm preferences are restored.
+5. Verify restored settings do not prevent normal playback.
+
+**Scenario E — Repeated media changes**
+
+1. Load one local video.
+2. Load its subtitles.
+3. Switch to another video.
+4. Load new subtitles.
+5. Open a streaming URL.
+6. Switch back to a local video.
+
+Check for resource leaks, stale subtitles, frozen playback, and unexpected state retention.
+
+**Scenario F — Error recovery**
+
+1. Attempt to load an unsupported media file.
+2. Attempt to open an invalid streaming URL.
+3. Encounter a network failure.
+4. Return to a valid local video.
+
+Verify that the application recovers and remains functional.
+
+Do not let one failed source permanently break the player.
+
+---
+
+# PART 15 — Accessibility and Usability
+
+## 30. Practical Accessibility Audit
+
+Check basic accessibility without redesigning the interface.
+
+Verify:
+
+- Interactive controls have appropriate accessible names.
+- Icon-only buttons can be understood by assistive technology.
+- Keyboard navigation works reasonably.
+- Focus behavior is predictable.
+- Menus and popups can be closed appropriately.
+- Text remains readable.
+- Subtitle contrast remains effective.
+- Important errors are communicated clearly.
+- Hidden controls do not incorrectly remain keyboard-focusable.
+- The translation popup does not trap the user unexpectedly.
+
+Maintain the current minimalist design.
+
+Only correct actual accessibility and usability defects.
+
+---
+
+# PART 16 — Build and Publishing Readiness
+
+## 31. Production Build Verification
+
+Before publication, check that the application can be built and deployed successfully.
+
+Verify:
+
+- No blocking build errors.
+- No unresolved imports.
+- No missing production dependencies.
+- No broken environment-variable references.
+- No accidental development-only configuration.
+- No exposed API secrets.
+- No missing required static assets.
+- No critical browser-console errors.
+- No unhandled promise rejections.
+- No broken client-side routes.
+- No broken About page navigation after refreshing directly on its URL.
+- No broken media loading caused by production paths.
+- No unnecessary API requests on initial page load.
+
+Check that the application functions in a production-like environment, not only inside Google AI Studio's development preview.
+
+Do not assume that a successful development preview guarantees successful public deployment.
+
+---
+
+# PART 17 — Final Audit Report
+
+## 32. Provide a Clear Audit Summary
+
+After completing the audit, I want a concise but professional report explaining the results.
+
+Please organize the report into these sections:
+
+### A. Overall Readiness
+
+State whether Lingo Play appears ready for publication based on the checks actually performed.
+
+Use one of these conclusions:
+
+- Ready for publication based on verified checks.
+- Ready with minor known limitations.
+- Not yet ready due to critical issues.
+- Publication readiness cannot be fully verified with the available testing environment.
+
+### B. Audit Results
+
+Summarize the status of:
+
+- Video playback.
+- Audio playback.
+- Streaming.
+- Subtitles.
+- Gemini translation.
+- Settings persistence.
+- Concentration Mode.
+- Keyboard shortcuts.
+- HTML behavior.
+- Navigation.
+- Performance.
+- Security.
+- Browser compatibility.
+
+Clearly distinguish tested and verified items from code-reviewed or untested items.
+
+### C. Problems Found
+
+For each genuine issue, explain:
+
+- What the issue was.
+- How it was identified.
+- Its severity.
+- Whether it was fixed.
+- Whether any limitation remains.
+
+### D. Changes Made
+
+List only the actual changes performed.
+
+For each change, briefly explain why it was necessary.
+
+If nothing needed correction, clearly state that no changes were required.
+
+### E. Remaining Limitations
+
+Document any important technical limitations, including:
+
+- Browser codec restrictions.
+- Streaming URL or CORS limitations.
+- Browser audio-track limitations.
+- Gemini API connectivity, quota, or availability.
+- Any behavior that could not be verified in the available environment.
+
+Do not misrepresent browser restrictions as application bugs.
+
+### F. Final Confirmation
+
+Confirm whether the original user interface and existing functionality were preserved.
+
+If any existing behavior was necessarily changed to fix a defect, disclose it explicitly.
+
+Do not claim that something was tested unless it was actually tested.
+
+---
+
+# FINAL INSTRUCTION — MOST IMPORTANT
+
+Lingo Play is already working exceptionally well.
+
+I am not asking for an application upgrade, redesign, optimization project, or feature expansion.
+
+I am asking for a professional pre-publication quality assurance audit.
+
+My priorities, in order, are:
+
+**1. Preserve every working feature and the existing visual design.**
+
+**2. Identify genuine defects, crashes, security problems, and reliability issues.**
+
+**3. Ensure appropriate browser settings are automatically saved and restored using localStorage.**
+
+**4. Verify reliable handling of video playback, audio playback, subtitle interaction, Gemini translation, navigation, and unusual error conditions.**
+
+**5. Correct only verified problems using minimal, targeted changes.**
+
+**6. Produce an accurate final audit report showing what was checked, what was actually tested, what was fixed, and what remains unverified.**
+
+Do not touch anything that is already working correctly.
+
+Do not introduce new visual elements or unnecessary features.
+
+Do not make speculative improvements.
+
+Do not claim that all functionality is perfect without adequate verification.
+
+**My desired result is the same Lingo Play application, looking and behaving exactly as it does now, but with greater confidence in its stability, reliability, security, and readiness for public release.**

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#242424"/>
+      <stop offset="100%" stop-color="#121212"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded Dark Charcoal Card matching Lingo Play's #212121 / #383838 aesthetic -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bgGrad)" stroke="#383838" stroke-width="2.5"/>
+  <!-- Subtle inner top highlight -->
+  <rect x="4.5" y="4.5" width="55" height="55" rx="11.5" stroke="#F1F1F1" stroke-opacity="0.06" stroke-width="1"/>
+  <!-- Signature Lingo Play Red (#FF0033) Play Symbol -->
+  <path d="M23.5 16.2C23.5 14.32 25.56 13.17 27.16 14.17L45.16 25.47C46.66 26.41 46.66 28.59 45.16 29.53L27.16 40.83C25.56 41.83 23.5 40.68 23.5 38.8V16.2Z" fill="#FF0033"/>
+  <!-- Interactive Subtitle / Language Line Indicator (#F1F1F1 + #FF0033) -->
+  <rect x="16" y="47.5" width="20" height="4.5" rx="2.25" fill="#F1F1F1"/>
+  <rect x="39.5" y="47.5" width="8.5" height="4.5" rx="2.25" fill="#FF0033"/>
+</svg>
