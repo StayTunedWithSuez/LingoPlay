@@ -25,7 +25,7 @@ export const LingoPlayLogo: React.FC<LingoPlayLogoProps> = ({
         <Play className={`${playIconSize} text-[#FF0033] fill-[#FF0033] translate-x-[0.5px]`} />
       </span>
       <span className={`${textSize} font-semibold tracking-tight whitespace-nowrap`}>
-        <span className="text-[#F1F1F1]">Lingo</span>{' '}
+        <span className="text-[#F1F1F1]">Bingo</span>{' '}
         <span className="text-[#FF0033]">Play</span>
       </span>
     </>
@@ -37,8 +37,8 @@ export const LingoPlayLogo: React.FC<LingoPlayLogoProps> = ({
         type="button"
         data-testid={testId}
         onClick={onClick}
-        aria-label="Lingo Play Home"
-        title="Lingo Play — Return to Video Player"
+        aria-label="Bingo Play Home"
+        title="Bingo Play — Return to Video Player"
         className="group inline-flex items-center gap-2.5 whitespace-nowrap shrink-0 rounded-lg py-1 px-1.5 -ml-1.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF0033] cursor-pointer"
       >
         {content}

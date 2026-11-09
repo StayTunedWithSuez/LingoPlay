@@ -1,6 +1,6 @@
 export const SAMPLE_SRT_CONTENT = `1
 00:00:00,000 --> 00:00:04,950
-Welcome to Lingo Play. Pause at any time with Space,
+Welcome to Bingo Play. Pause at any time with Space,
 and double-click any unfamiliar word to select it.
 
 2

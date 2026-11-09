@@ -234,7 +234,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`LingoPlay server running on http://0.0.0.0:${PORT}`);
+    console.log(`BingoPlay server running on http://0.0.0.0:${PORT}`);
   });
 }
 

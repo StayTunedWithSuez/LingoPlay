@@ -452,16 +452,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToPlayer }) => {
               id="about-lingo-play-heading"
               className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F1F1F1]"
             >
-              About Lingo Play
+              About Bingo Play
             </h1>
           </div>
 
-          {/* Application Introduction & Why Lingo Play Was Created */}
+          {/* Application Introduction & Why Bingo Play Was Created */}
           <div className="rounded-xl bg-[#212121] border border-[#383838] p-6 sm:p-8 space-y-8">
             <div className="space-y-4">
               <div className="space-y-1">
                 <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#F1F1F1]">
-                  Lingo Play
+                  Bingo Play
                 </h2>
                 <p className="text-sm sm:text-base font-semibold text-[#FF0033]">
                   Watch. Understand. Learn.
@@ -470,12 +470,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToPlayer }) => {
 
               <div className="space-y-3.5 text-sm sm:text-[15px] leading-relaxed text-[#F1F1F1]/90">
                 <p>
-                  Lingo Play is a modern, browser-based video player designed to make learning
+                  Bingo Play is a modern, browser-based video player designed to make learning
                   English through movies, television shows, and other video content easier, more
                   interactive, and more enjoyable.
                 </p>
                 <p>
-                  Unlike traditional video players that focus primarily on media playback, Lingo
+                  Unlike traditional video players that focus primarily on media playback, Bingo
                   Play combines essential playback controls with language-learning features that
                   help users understand spoken English naturally.
                 </p>
@@ -490,14 +490,14 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToPlayer }) => {
                   and translation website.
                 </p>
                 <p>
-                  Lingo Play emphasizes simplicity, accessibility, and concentration. Its minimal
+                  Bingo Play emphasizes simplicity, accessibility, and concentration. Its minimal
                   interface provides the essential tools needed for comfortable viewing while
                   keeping unnecessary distractions out of the way.
                 </p>
                 <p>
                   Whether someone is practicing listening comprehension, understanding unfamiliar
                   vocabulary, exploring conversational expressions, or learning English through
-                  entertainment, Lingo Play aims to provide a convenient and engaging learning
+                  entertainment, Bingo Play aims to provide a convenient and engaging learning
                   environment.
                 </p>
               </div>
@@ -507,7 +507,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToPlayer }) => {
 
             <div className="space-y-3.5">
               <h3 className="text-lg sm:text-xl font-semibold tracking-tight text-[#F1F1F1]">
-                Why Lingo Play Was Created
+                Why Bingo Play Was Created
               </h3>
 
               <div className="space-y-3.5 text-sm sm:text-[15px] leading-relaxed text-[#F1F1F1]/90">
@@ -520,13 +520,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToPlayer }) => {
                   video, searching for word meanings, switching between browser tabs, and manually
                   adjusting subtitles.
                 </p>
-                <p>Lingo Play was created to make this process simpler.</p>
+                <p>Bingo Play was created to make this process simpler.</p>
                 <p>
                   By combining video playback, selectable subtitles, precise seeking controls, and
                   AI-powered translation within one interface, the application makes it easier to
                   focus on understanding language rather than managing multiple tools.
                 </p>
-                <p>The core philosophy of Lingo Play is simple:</p>
+                <p>The core philosophy of Bingo Play is simple:</p>
                 <p className="font-semibold text-[#F1F1F1]">
                   Learning should happen naturally while watching, with the right tools available
                   whenever they are needed.
@@ -574,12 +574,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToPlayer }) => {
 
             <div className="rounded-xl bg-[#212121] border border-[#383838] p-6 space-y-3 text-sm sm:text-[15px] leading-relaxed text-[#F1F1F1]/90">
               <p>
-                Lingo Play is built around the belief that effective language learning should be
+                Bingo Play is built around the belief that effective language learning should be
                 simple, accessible, and enjoyable.
               </p>
               <p>
                 By combining familiar video playback controls with interactive subtitles and
-                context-aware translation, Lingo Play helps learners spend less time managing
+                context-aware translation, Bingo Play helps learners spend less time managing
                 tools and more time understanding the language they hear.
               </p>
               <p>
@@ -598,7 +598,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToPlayer }) => {
           className="pt-8 border-t border-[#383838] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-[#AAAAAA]"
         >
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">
-            <span className="font-semibold text-[#F1F1F1]">Lingo Play</span>
+            <span className="font-semibold text-[#F1F1F1]">Bingo Play</span>
             <span aria-hidden="true" className="hidden sm:inline text-[#383838]">
               ·
             </span>
